@@ -106,7 +106,7 @@ class PokemonDetailViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+
 //            redView.topAnchor.constraint(equalTo: contentView.topAnchor),
 //            redView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 //            redView.widthAnchor.constraint(equalToConstant: 50),
@@ -139,7 +139,7 @@ class PokemonDetailViewController: UIViewController {
     
     @objc
     func locationButtonTapped() {
-       present(PokemonLocationViewController(), animated: true)
+        present(PokemonLocationViewController(pokemonLocation: viewModel.pokemonLocation), animated: true)
     }
 }
 

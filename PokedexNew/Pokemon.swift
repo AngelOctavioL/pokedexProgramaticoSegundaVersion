@@ -12,11 +12,17 @@ import Foundation
 // podri ser asi struct Pokemon: Decodable, Encodable
 // o asi struct Pokemon: Codable
 struct Pokemon: Codable {
+    struct Location: Codable {
+        let latitude: Double
+        let longitude: Double
+    }
+    
     let id: Int
     let name: String
     let number: String
     let type: [String]
     let imageURL: String
+    let location: Location?
     
     // para que sean iguales a los nombres del JSON
     private enum CodingKeys: String, CodingKey {
@@ -25,5 +31,6 @@ struct Pokemon: Codable {
         case number = "num"
         case type
         case imageURL = "img"
+        case location
     }
 }

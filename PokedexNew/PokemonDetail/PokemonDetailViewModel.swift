@@ -16,6 +16,9 @@ class PokemonDetailViewModel {
     
     var pokemonName: String { pokemon.name }
     
+    // obteniendo la ubicacion del pokemon
+    var pokemonLocation: Pokemon.Location? { pokemon.location }
+    
     weak var delegate: PokemonDetailViewModelDelegate?
     
     init(with pokemon: Pokemon) {

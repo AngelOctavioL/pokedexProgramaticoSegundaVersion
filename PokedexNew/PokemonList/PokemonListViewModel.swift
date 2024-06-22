@@ -34,7 +34,7 @@ class PokemonListViewModel {
             assertionFailure("Cannot read pokemon file")
             return []
         }
-        
+
         return pokemonList
     }
     
