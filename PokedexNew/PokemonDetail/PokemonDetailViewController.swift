@@ -8,14 +8,13 @@
 import UIKit
 
 class PokemonDetailViewController: UIViewController {
-    
+    // vista corregida
     private let viewModel: PokemonDetailViewModel
-    
-    // Define scrollView as a stored property instead of a computed property
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .purple
+
         return scrollView
     }()
     
@@ -23,18 +22,21 @@ class PokemonDetailViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
+
         return view
     }()
     
     private lazy var pokemonImagenView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "lizard")
+        imageView.contentMode = .scaleAspectFit
+        let image = UIImage(systemName: "lizard")
+        imageView.image = image
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalToConstant: 100)
         ])
+        
         return imageView
     }()
     
@@ -44,21 +46,28 @@ class PokemonDetailViewController: UIViewController {
         label.text = viewModel.pokemonName
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityLabel = nil
+        
         return label
     }()
     
-//    private lazy pokemonLocationButton: UIButton = {
-//        
-//    }
+    private lazy var pokemonLocationButton: UIButton = {
+        var buttonConfiguration = UIButton.Configuration.filled()
+        buttonConfiguration.title = "Pokemon location"
+        
+        return UIButton(configuration: buttonConfiguration)
+    }()
     
     init(pokemon: Pokemon) {
-            viewModel = PokemonDetailViewModel(with: pokemon)
-            super.init(nibName: nil, bundle: nil)
-        }
-    
-    deinit {
-        print("")
+        viewModel = PokemonDetailViewModel(with: pokemon)
+        super.init(nibName: nil, bundle: nil)
+        
+        viewModel.delegate = self
     }
+    
+//    deinit {
+//        print("")
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -96,7 +105,7 @@ class PokemonDetailViewController: UIViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
 //            redView.topAnchor.constraint(equalTo: contentView.topAnchor),
 //            redView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -112,7 +121,7 @@ class PokemonDetailViewController: UIViewController {
         
         pokemonInfoStack.addArrangedSubview(pokemonImagenView)
         pokemonInfoStack.addArrangedSubview(pokemonName)
-        //pokemonInfoStack.addArrangedSubview(pokemonLocationButton)
+        pokemonInfoStack.addArrangedSubview(pokemonLocationButton)
         
         contentView.addSubview(pokemonInfoStack)
         
@@ -123,7 +132,14 @@ class PokemonDetailViewController: UIViewController {
             pokemonInfoStack.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
         ])
         
-        //pokemonLocationButton.addTarget(self, action: #selector(locationButtonTapped), for)
+        pokemonLocationButton.addTarget(self,
+                                        action: #selector(locationButtonTapped),
+                                        for: .touchUpInside)
+    }
+    
+    @objc
+    func locationButtonTapped() {
+       present(PokemonLocationViewController(), animated: true)
     }
 }
 

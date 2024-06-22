@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 
-            let ViewController = PokemonListTableViewController(style: .insetGrouped)
-            let navigationController = UINavigationController(rootViewController: ViewController)
+            let viewController = PokemonListTableViewController(style: .insetGrouped)
+            let navigationController = UINavigationController(rootViewController: viewController)
             window.rootViewController = navigationController
             self.window = window
             window.makeKeyAndVisible()

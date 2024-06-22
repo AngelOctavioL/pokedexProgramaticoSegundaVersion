@@ -31,7 +31,7 @@ class PokemonDetailViewModel {
         DispatchQueue.global().async { [weak self] in
             if let imageData = try? Data(contentsOf: url),
                let pokemonImage = UIImage(data: imageData) {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     self?.delegate?.updatePokemonImage(to: pokemonImage)
                 }
             }

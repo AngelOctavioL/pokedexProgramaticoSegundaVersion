@@ -43,8 +43,9 @@ class PokemonListViewModel {
     }
 }
 
+// Tipos de restricciones
 // fileprivate
 // private
 // internal
-//
+// public
 
